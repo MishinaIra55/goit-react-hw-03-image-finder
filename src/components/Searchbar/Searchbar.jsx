@@ -3,17 +3,30 @@ import styles from './Searchbar.module.css';
 
 import { ImSearch } from "react-icons/im";
 export class Searchbar extends Component {
+  state = {
+    image: '',
+  };
 
+  handleSearch = event => {
+    this.setState( {image: event.currentTarget.value.toLowerCase()});
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+}
   render() {
     return (
       <header className={styles.searchbar}>
-        <form className={styles.searchForm}>
+        <form className={styles.searchForm} onSubmit={this.handleSubmit}>
           <input
             className={styles.searchForminput}
             type="text"
-            autoComplete="off"
+            // autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
+            value={this.state.image}
+            onChange={this.handleSearch}
+
           />
 
           <button type="submit" className={styles.searchFormbutton}>
