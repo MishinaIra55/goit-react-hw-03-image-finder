@@ -14,7 +14,7 @@ export class Searchbar extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.onSearchbar(this.state.image); //вызов props s app
+    this.props.onSubmit (this.state.image); //вызов props s app
 }
   render() {
     return (

@@ -7,9 +7,13 @@ import { Searchbar } from './Searchbar/Searchbar';
 
 export class App extends Component {
 
+  state = {
+    image: '',
+  };
+
   handleSearchbar = image => {
-    console.log(image);
-  }
+    this.setState( { image });
+  };
 
   // async componentDidMount() {
   //   this.setState({loading: true});
@@ -26,7 +30,7 @@ export class App extends Component {
   render() {
     return (
       <div>
-      <Searchbar onSearchbar={this.handleSearchbar}/>
+      <Searchbar onSubmit ={this.handleSearchbar}/>
       </div>
     )
   }
