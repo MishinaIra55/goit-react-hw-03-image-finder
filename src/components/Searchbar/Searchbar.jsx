@@ -7,12 +7,14 @@ export class Searchbar extends Component {
     image: '',
   };
 
+  //меняю состояние с inputa
   handleSearch = event => {
     this.setState( {image: event.currentTarget.value.toLowerCase()});
   };
 
   handleSubmit = event => {
     event.preventDefault();
+    this.props.onSearchbar(this.state.image); //вызов props s app
 }
   render() {
     return (

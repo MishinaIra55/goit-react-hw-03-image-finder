@@ -1,12 +1,15 @@
 import { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { Searchbar } from './Searchbar/Searchbar';
 
-import { ImageGallery } from './ImageGallery/ImageGallery';
+// import { ImageGallery } from './ImageGallery/ImageGallery';
 
 
 export class App extends Component {
 
+  handleSearchbar = image => {
+    console.log(image);
+  }
 
   // async componentDidMount() {
   //   this.setState({loading: true});
@@ -23,7 +26,7 @@ export class App extends Component {
   render() {
     return (
       <div>
-      <Searchbar/>
+      <Searchbar onSearchbar={this.handleSearchbar}/>
       </div>
     )
   }
