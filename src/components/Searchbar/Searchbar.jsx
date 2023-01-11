@@ -2,7 +2,7 @@ import { Component } from 'react';
 import styles from './Searchbar.module.css';
 
 import { ImSearch } from "react-icons/im";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export class Searchbar extends Component {
   state = {
@@ -23,7 +23,8 @@ export class Searchbar extends Component {
       return;
     }
 
-    this.props.onSubmit(this.state.search); //вызов props s app
+    this.props.onSubmit(this.state.search);
+    this.setState({ search: ''});//вызов props s app
 }
   render() {
     return (
@@ -45,7 +46,7 @@ export class Searchbar extends Component {
             <ImSearch/>
           </button>
         </form>
-        <ToastContainer autoClose={2000}/>
+
       </header>
     );
   }

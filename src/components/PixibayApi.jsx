@@ -3,30 +3,24 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
-const ImageGalleryList = ({ images }) => (
-  <ul>
-    {images.map(({ id, webformatURL, largeImageURL }) => (
-      <li key={id}>
-        <img src={webformatURL} alt={webformatURL} />
-      </li>
-    ))}
-  </ul>
-);
+// const ImageGalleryList = ({ images }) => (
+//   <ul>
+//     {images.map(({ id, webformatURL, largeImageURL }) => (
+//       <li key={id}>
+//         <img src={webformatURL} alt={webformatURL} />
+//       </li>
+//     ))}
+//   </ul>
+// );
 
 export class PixabayApi extends Component {
   state ={
       images: [],
-
+      isLoading: false,
     // error: null,
     // status: 'idle',
   };
 
-  // async componentDidMount() {
-  //   console.log('propsPixy', this.props.searchData);
-  //   const  response = await axios.get(`https://pixabay.com/api/?q=${this.props.searchData}&page=1&key=31487728-a23d010ad4dc914c660c439a4&image_type=photo&orientation=horizontal&per_page=12`)
-  //   console.log('response', response.data.hits);
-  //
-  // }
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
 
@@ -41,7 +35,8 @@ export class PixabayApi extends Component {
           );
         })
         .then(images => {
-          this.setState({ images })
+          this.setState({ images: images.hits })
+
         })
 
         .catch(error => this.setState({ error }))
@@ -50,8 +45,18 @@ export class PixabayApi extends Component {
   }
 
   render() {
-    console.log('this.state.images',this.state.images);
-    return <div>хуй</div>
+    console.log('state.length', this.state.images.length);
+    console.log('state', this.state.images);
+    return (
+
+      <div>
+        {this.state.error && <div>{this.state.error.message}</div>}
+        {this.state.loading && <div>Loading....</div>}
+        {!this.props.searchData && <div>Введите ваш запрос поиска</div>}
+        {this.state.images.length > 0 && <div>{this.state.images[0].id}</div>}
+        {/*{this.state.images.length > 0 && <ImageGalley images={this.state.images}/>}*/}
+      </div>
+    )
   }
 }
 
