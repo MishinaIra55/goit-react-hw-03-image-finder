@@ -2,19 +2,28 @@ import { Component } from 'react';
 import styles from './Searchbar.module.css';
 
 import { ImSearch } from "react-icons/im";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export class Searchbar extends Component {
   state = {
-    image: '',
+    search: '',
   };
 
   //меняю состояние с inputa
   handleSearch = event => {
-    this.setState( {image: event.currentTarget.value.toLowerCase()});
+    this.setState( {search: event.currentTarget.value.toLowerCase()});
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.onSubmit (this.state.image); //вызов props s app
+
+    //проверка чтобы не отправлять форму пустую
+    if (this.state.search.trim() === '') {
+      toast.error('Введите ваш запрос');
+      return;
+    }
+
+    this.props.onSubmit(this.state.search); //вызов props s app
 }
   render() {
     return (
@@ -26,7 +35,7 @@ export class Searchbar extends Component {
             // autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            value={this.state.image}
+            value={this.state.search}
             onChange={this.handleSearch}
 
           />
@@ -35,8 +44,8 @@ export class Searchbar extends Component {
             <span className={styles.searchFormbuttonlabel}>Search</span>
             <ImSearch/>
           </button>
-
         </form>
+        <ToastContainer autoClose={2000}/>
       </header>
     );
   }
