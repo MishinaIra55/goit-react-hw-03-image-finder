@@ -1,4 +1,4 @@
-import { ImSpinner } from 'react-icons/all';
+import { ImSpinner } from 'react-icons/im';
 
 
 export const Loader = () => {

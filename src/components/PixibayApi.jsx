@@ -19,7 +19,7 @@ export class PixabayApi extends Component {
   };
 
 
-  async componentDidUpdate(prevProps, prevState, snapshot) {
+componentDidUpdate(prevProps, prevState, snapshot) {
 
     if (prevProps.searchData !== this.props.searchData) {
 
@@ -27,6 +27,7 @@ export class PixabayApi extends Component {
 
       fetch(`https://pixabay.com/api/?q=${this.props.searchData}&page=1&key=31487728-a23d010ad4dc914c660c439a4&image_type=photo&orientation=horizontal&per_page=12`)
         .then(response => {
+
           if (response.ok) {
             return response.json();
           }
@@ -50,9 +51,9 @@ export class PixabayApi extends Component {
       return <div>Введите ваш запрос поиска</div>
     }
 
-    // if (status === 'pending') {
-    //   return <Loader/>
-    // }
+    if (status === 'pending') {
+      return <Loader/>
+    }
 
     // if (status === 'rejected') {
     //   return <GalleryError message={error.message}/>
