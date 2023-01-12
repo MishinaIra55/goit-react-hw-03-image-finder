@@ -1,17 +1,10 @@
 import { Component } from 'react';
 import axios from 'axios';
 
+import GalleryError from './Error/Error';
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
-// const ImageGalleryList = ({ images }) => (
-//   <ul>
-//     {images.map(({ id, webformatURL, largeImageURL }) => (
-//       <li key={id}>
-//         <img src={webformatURL} alt={webformatURL} />
-//       </li>
-//     ))}
-//   </ul>
-// );
+
 
 export class PixabayApi extends Component {
   state = {
@@ -65,7 +58,7 @@ export class PixabayApi extends Component {
     }
 
     if (status === 'rejected') {
-      return <h1>{error.message}</h1>
+      return <GalleryError message={error.message}/>
     }
 
     if (status === 'resolved') {
