@@ -2,6 +2,10 @@ import { Component } from 'react';
 import axios from 'axios';
 
 import GalleryError from './Error/Error';
+import { ImageGallery } from './ImageGallery/ImageGallery';
+import { Loader } from './Loader/Loader';
+
+
 axios.defaults.baseURL = 'https://pixabay.com/api/';
 
 
@@ -36,50 +40,29 @@ export class PixabayApi extends Component {
         })
 
         .catch(error => this.setState({ error, status: 'rejected' }))
-
-
-
     }
   }
 
   render() {
-
     const { images, error, status } = this.state;
-
-    // console.log('state.length', this.state.images.length);
-    // console.log('state', this.state.images);
 
     if (status === 'idle') {
       return <div>Введите ваш запрос поиска</div>
     }
 
-    if (status === 'pending') {
-      return <div>Loading....</div>
-    }
+    // if (status === 'pending') {
+    //   return <Loader/>
+    // }
 
-    if (status === 'rejected') {
-      return <GalleryError message={error.message}/>
-    }
+    // if (status === 'rejected') {
+    //   return <GalleryError message={error.message}/>
+    // }
 
     if (status === 'resolved') {
-      return <p>{images[0].id}</p>
+      return <ImageGallery images={images}/>
     }
   }
 }
-    // return (
-    //
-    //   <div>
-    //     {error && <h1>{error.message}</h1>}
-    //     {loading && <div>Loading....</div>}
-    //     {!searchData && <div>Введите ваш запрос поиска</div>}
-    //     {images.length > 0 &&
-    //       <div>
-    //         <p>{images[0].id}</p>
-    //
-    //         </div>}
-    //     {/*{this.state.images.length > 0 && <ImageGalley images={this.state.images}/>}*/}
-    //   </div>
-    // )
 
 
 

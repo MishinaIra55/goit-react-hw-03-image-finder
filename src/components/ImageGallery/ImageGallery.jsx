@@ -1,9 +1,13 @@
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 export  const ImageGallery =({ images }) => {
-  return(
+
+  return (
     <ul className="gallery">
-      {}
-    {/*  каждый колбек мапа возвращает <ImageGalleryItem src={element.src}/>*/}
+      { images.map(item => {
+        return (
+          <ImageGalleryItem key={item.id} image={item}/>
+        )
+      })}
     </ul>
   )
 }
