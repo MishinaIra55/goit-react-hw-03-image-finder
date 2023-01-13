@@ -7,10 +7,6 @@ import { Loader } from './Loader/Loader';
 import api from '../services/pixibay-api';
 import Button from './Button/Button';
 
-
-
-
-
 export class GalleryForm extends Component {
   state = {
     images: [],
@@ -22,8 +18,8 @@ export class GalleryForm extends Component {
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
 
-    if (prevProps.searchData !== this.props.searchData) {
-
+    if (prevProps.searchData !== this.props.searchData || prevState.page !== this.state.page) {
+      console.log('prevState.page', prevState.page);
       this.setState({ status: 'pending' });
 
       try {
@@ -63,7 +59,7 @@ export class GalleryForm extends Component {
     if (status === 'resolved') {
       return <>
         <ImageGallery images={images} />,
-        <Button />
+        <Button load={this.onLoadMore}/>
       </>
 
     }

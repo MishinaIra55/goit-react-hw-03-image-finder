@@ -1,7 +1,7 @@
 
 
-export default function Button () {
+export default function Button ({load}) {
   return(
-    <button type='button' >Load more</button>
+    <button type='button' onClick={() => load()}>Load more</button>
   )
 }
