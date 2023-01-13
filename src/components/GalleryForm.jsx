@@ -1,9 +1,11 @@
 import { Component } from 'react';
-import axios from 'axios';
+
 
 import ErrorData from './ErrorData/ErrorData';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader/Loader';
+import api from '../services/pixibay-api';
+import Button from './Button/Button';
 
 
 
@@ -25,13 +27,18 @@ export class GalleryForm extends Component {
       this.setState({ status: 'pending' });
 
       try {
-        const response = await axios.get(
-          `https://pixabay.com/api/?q=${this.props.searchData}&page=1&key=31487728-a23d010ad4dc914c660c439a4&image_type=photo&orientation=horizontal&per_page=12`);
-        this.setState({ images: response.data.hits, status: 'resolved' });
+        const response = await api.fetchAxiosGallery(this.props.searchData);
+        this.setState({ images: response.hits, status: 'resolved' });
       } catch (error) {
         this.setState({ error: `нет картинки ${this.props.searchData}`, status: 'rejected' });
       }
     }
+  }
+
+  onLoadMore =() => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
   }
 
   render() {
@@ -54,8 +61,13 @@ export class GalleryForm extends Component {
     }
 
     if (status === 'resolved') {
-      return <ImageGallery images={images} />;
+      return <>
+        <ImageGallery images={images} />,
+        <Button />
+      </>
+
     }
+
   }
 }
 
