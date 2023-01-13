@@ -6,14 +6,15 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader/Loader';
 
 
-axios.defaults.baseURL = 'https://pixabay.com/api/';
 
 
-export class PixabayApi extends Component {
+
+export class GalleryForm extends Component {
   state = {
     images: [],
     error: null,
     status: 'idle',
+    page: 1
   };
 
 
