@@ -12,38 +12,34 @@ axios.defaults.baseURL = 'https://pixabay.com/api/';
 export class PixabayApi extends Component {
   state = {
     images: [],
-
+    isEmpty: null,
     error: null,
     status: 'idle',
   };
 
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  async componentDidUpdate(prevProps, prevState, snapshot) {
 
     if (prevProps.searchData !== this.props.searchData) {
 
-      this.setState({ status: 'pending' });
+      this.setState({ status: 'pending', isEmpty: null });
 
-      // fetch(`https://pixaba.com/api/?q=${this.props.searchData}&page=1&key=31487728-a23d010ad4dc914c660c439a4&image_type=photo&orientation=horizontal&per_page=12`)
-      //   .then(response => {
-      //     if (response.ok) {
-      //       return response.json();
-      //     }
-      //     return Promise.reject(
-      //       // new Error(`нет картинки ${this.props.searchData}`)
-      //     );
-      //   })
-      //   .then(images => {
-      //     this.setState({ images: images.hits, status: 'resolved' });
-      //   })
-      //   .catch(error => this.setState({ error, status: 'rejected' })
-      // );
+      try {
+        const response = await axios.get(
+          `https://pixabay.com/api/?q=${this.props.searchData}&page=1&key=31487728-a23d010ad4dc914c660c439a4&image_type=photo&orientation=horizontal&per_page=12`);
+        this.setState({ images: response.data.hits, status: 'resolved' });
+        if(response.data.hits.length === 0 ) {
+          this.setState({ isEmpty: 'Response is empty. You can try again'});
+        }
+
+      } catch (error) {
+        this.setState({ error: `нет картинки ${this.props.searchData}`, status: 'rejected' });
+      }
     }
   }
 
   render() {
     const { images, error, status } = this.state;
-    console.log('error', error);
 
     if (status === 'idle') {
       return <div>Введите ваш запрос поиска</div>;
@@ -54,7 +50,7 @@ export class PixabayApi extends Component {
     }
 
     if (status === 'rejected') {
-      return <ErrorData message={error.message} />;
+      return <ErrorData message={error} />;
     }
 
     if (status === 'resolved') {
