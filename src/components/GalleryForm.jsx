@@ -5,7 +5,8 @@ import ErrorData from './ErrorData/ErrorData';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader/Loader';
 import api from '../services/pixibay-api';
-import Button from './Button/Button';
+import { Button } from './Button/Button';
+import { Modal } from './Modal/Modal';
 
 export class GalleryForm extends Component {
   state = {
