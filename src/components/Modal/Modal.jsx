@@ -4,7 +4,7 @@ import { Component } from 'react';
 import {createPortal} from 'react-dom';
 
 
-const modalRoot = document.querySelector('.modal-root');
+const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends Component {
 
@@ -21,7 +21,7 @@ export class Modal extends Component {
       this.props.onClose();
     }
   };
-  //
+
   // handleCloseBackdrop  = event => {
   //    if (event.currentTarget === event.target) {
   //      this.props.onClose();
@@ -29,17 +29,13 @@ export class Modal extends Component {
   //  };
 
   render() {
-    // const { children } =this.props;
-    // return createPortal(
-    //   <div className={styles.overlay} onClick={this.handleCloseBackdrop }>
-    //     <div className={styles.modal}>{children}</div>
-    //   </div>,
-    //   modalRoot,
-    // );
-    return (
-      <div className={styles.overlay} >
-        <div className={styles.modal}>sdfsdfsfsdf</div>
-      </div>
-    )
+    const { children } =this.props;
+    return createPortal(
+      <div className={styles.overlay}>
+        <div className={styles.modal}>{children}</div>
+      </div>,
+      modalRoot
+    );
+
   }
 }

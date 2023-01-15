@@ -38,20 +38,26 @@ export class App extends Component {
     )
 };
 
+  getLargeImage = (imageURL) => {
+  this.setState((state) => (
+    {
+      largeImage: imageURL
+    }
+    )
 
+  )
+}
 
   render() {
     return (
       <>
         <Searchbar onSubmit ={this.handleSearchbar}/>
-        <GalleryForm searchData={this.state.search} openModal={this.toggleModal}/>
+        <GalleryForm searchData={this.state.search} openModal={this.toggleModal} getUrl={this.getLargeImage}/>
         <ToastContainer autoClose={2000}/>
 
         {this.state.showModal && (
         <Modal onClose={this.toggleModal}>
-          {/* <div className="Close-box" onClick={this.toggleModal}>X</div>*/}
-          {/*<img src={this.state.largeImage} alt="" className="Modal-image" />*/}
-          <div>test</div>
+          <img src='#' alt="" className="Modal-image" />
         </Modal>
         )}
       </>
