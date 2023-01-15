@@ -42,10 +42,14 @@ export class GalleryForm extends Component {
   }
 
   render() {
-    const { images, error, status } = this.state;
+    const { images, error, status, page } = this.state;
 
     if (status === 'idle' && images.length === 0) {
       return <div>Введите ваш запрос поиска</div>;
+    }
+
+    if (status === 'pending' && page === 1) {
+      return <Loader/>
     }
 
     if (status === 'rejected') {
@@ -57,7 +61,11 @@ export class GalleryForm extends Component {
     // }
 
     return (<>
-      <ImageGallery images={images} modalclick={this.props.openModal} getUrl={this.props.getUrl}/>
+      <ImageGallery
+        images={images}
+        modalclick={this.props.openModal} getUrl={this.props.getUrl}
+        status={status}
+      />
       <Button load={this.onLoadMore} />
     </>)
 
