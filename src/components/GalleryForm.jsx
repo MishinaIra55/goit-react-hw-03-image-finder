@@ -63,10 +63,11 @@ export class GalleryForm extends Component {
     return (<>
       <ImageGallery
         images={images}
-        modalclick={this.props.openModal} getUrl={this.props.getUrl}
+        modalclick={this.props.openModal}
+        getUrl={this.props.getUrl}
         status={status}
+        load={this.onLoadMore}
       />
-      <Button load={this.onLoadMore} />
     </>)
 
   }

@@ -2,7 +2,8 @@ import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 
 import styles from './ImageGallery.module.css';
 import { Loader } from '../Loader/Loader';
-export  const ImageGallery = ({ images, modalclick, getUrl, status}) => {
+import { Button } from '../Button/Button';
+export  const ImageGallery = ({ images, modalclick, getUrl, status, load}) => {
   return (
     <>
       <ul className={styles.ImageGallery}>
@@ -12,7 +13,10 @@ export  const ImageGallery = ({ images, modalclick, getUrl, status}) => {
           )
         })}
       </ul>
-      {status === 'pending' && <Loader/>}
+      {status === 'pending'
+        ? <Loader/>
+        : <Button load={load}/>
+      }
     </>
   )
 }
