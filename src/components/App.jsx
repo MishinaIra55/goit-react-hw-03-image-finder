@@ -6,7 +6,8 @@ import { ToastContainer } from 'react-toastify';
 
 import { GalleryForm } from './GalleryForm';
 
-// import { Modal } from './Modal/Modal';
+import { Modal } from './Modal/Modal';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 
 
 
@@ -29,10 +30,12 @@ export class App extends Component {
 
   //переключение модалки
   toggleModal = () => {
-  this.setState(({ showModal }) => ({
-    showModal: !showModal,
-    largeImage: '',
-  }));
+    this.setState((state) => (
+        {
+          showModal: !state.showModal
+        }
+      )
+    )
 };
 
 
@@ -41,18 +44,16 @@ export class App extends Component {
     return (
       <>
         <Searchbar onSubmit ={this.handleSearchbar}/>
-        <GalleryForm searchData={this.state.search}/>
+        <GalleryForm searchData={this.state.search} openModal={this.toggleModal}/>
         <ToastContainer autoClose={2000}/>
-        {/*{showModal && (*/}
-        {/*<Modal onClose={this.toggleModal}>*/}
-        {/*   <div className="Close-box" onClick={this.toggleModal}>X*/}
-        {/*      /!*<IconButton onClick={this.toggleModal} aria-label="Close modal">*!/*/}
-        {/*      /!*  <CloseIcon width="20px" height="20px" fill="#7e7b7b" />*!/*/}
-        {/*      /!*</IconButton>*!/*/}
-        {/*    </div>*/}
-        {/*  <img src={largeImage} alt="" className="Modal-image" />*/}
-        {/*</Modal>*/}
-        {/*)}*/}
+
+        {this.state.showModal && (
+        <Modal onClose={this.toggleModal}>
+          {/* <div className="Close-box" onClick={this.toggleModal}>X</div>*/}
+          {/*<img src={this.state.largeImage} alt="" className="Modal-image" />*/}
+          <div>test</div>
+        </Modal>
+        )}
       </>
     )
   }

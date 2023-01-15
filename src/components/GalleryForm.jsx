@@ -19,17 +19,16 @@ export class GalleryForm extends Component {
   async componentDidUpdate(prevProps, prevState, snapshot) {
 
     if (prevProps.searchData !== this.props.searchData || prevState.page !== this.state.page) {
-      // this.setState({ status: 'pending' });
+      this.setState({ status: 'pending' });
 
       try {
         const response = await api.fetchAxiosGallery(this.props.searchData,this.state.page);
         this.setState(({images}) => {
           return {
             images: [...images, ...response.hits],
-            status: 'resolved'
+            status: 'idle'
           }
         });
-        console.log('status', this.state.status);
       } catch (error) {
         this.setState({ error: `нет картинки ${this.props.searchData}`, status: 'rejected' });
       }
@@ -42,8 +41,6 @@ export class GalleryForm extends Component {
     }));
   }
 
-
-
   render() {
     const { images, error, status } = this.state;
 
@@ -51,25 +48,18 @@ export class GalleryForm extends Component {
       return <div>Введите ваш запрос поиска</div>;
     }
 
-    // if (status === 'pending') {
-    //   return <Loader />;
-    // }
-
     if (status === 'rejected') {
       return <ErrorData message={error} />;
     }
+    //
+    // if (images.length === 0) {
+    //   return <div>Try again</div>
+    // }
 
-    if (images.length === 0) {
-      return <div>Try again</div>
-    }
-
-    if (status === 'resolved') {
-      return <>
-        <ImageGallery images={images} status={status}/>,
-        <Button load={this.onLoadMore}/>
-      </>
-
-    }
+    return (<>
+      <ImageGallery images={images} modalclick={this.props.openModal}/>
+      <Button load={this.onLoadMore} />
+    </>)
 
   }
 }
