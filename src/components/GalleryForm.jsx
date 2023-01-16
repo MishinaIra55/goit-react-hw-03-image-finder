@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 export class GalleryForm extends Component {
   state = {
     images: [],
-    error: null,
+    error: '',
     status: 'idle',
     page: 1
   };
