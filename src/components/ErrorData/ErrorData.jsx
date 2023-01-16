@@ -12,5 +12,5 @@ export default function ErrorData ( { message }) {
 }
 
 ErrorData.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.string.isRequired,
 }

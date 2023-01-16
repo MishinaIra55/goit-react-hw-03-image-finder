@@ -25,6 +25,8 @@ export class Searchbar extends Component {
       return;
     }
 
+
+
     this.props.onSubmit(search);
     this.setState({ search: ''});//вызов props s app
 }
@@ -56,5 +58,5 @@ export class Searchbar extends Component {
 }
 
 Searchbar.proTypes = {
-  onSubmit: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 }

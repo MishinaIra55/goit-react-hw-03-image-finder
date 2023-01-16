@@ -7,5 +7,5 @@ export  function Button ({ load }) {
   )
 }
 Button.propTypes = {
-  load: PropTypes.func,
+  load: PropTypes.func.isRequired,
 }

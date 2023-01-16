@@ -4,7 +4,7 @@ import { Component } from 'react';
 import ErrorData from './ErrorData/ErrorData';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader/Loader';
-import api from '../services/pixibay-api';
+import {fetchAxiosGallery} from '../services/pixibay-api';
 
 import styles from './GalleryForm.module.css';
 import PropTypes from 'prop-types';
@@ -24,13 +24,17 @@ export class GalleryForm extends Component {
       this.setState({ status: 'pending' });
 
       try {
-        const response = await api.fetchAxiosGallery(this.props.searchData,this.state.page);
+        const response = await fetchAxiosGallery(this.props.searchData,this.state.page);
         this.setState(({images}) => {
           return {
             images: [...images, ...response.hits],
             status: 'idle'
           }
         });
+
+        if (response.hits.length === 0) {
+          throw  new SyntaxError('Try again, the search is not correct');
+        }
       } catch (error) {
         this.setState({ error: `нет картинки ${this.props.searchData}`, status: 'rejected' });
       }
@@ -50,12 +54,16 @@ export class GalleryForm extends Component {
       return <div className={styles.text}>Введите ваш запрос поиска</div>;
     }
 
+    // if ( images.length === 0) {
+    //   return <div className={styles.text}>Try again, the search is not correct</div>
+    // }
+
     if (status === 'pending' && page === 1) {
       return <Loader/>
     }
 
     if (status === 'rejected') {
-      return <ErrorData message={ error}/>;
+      return <ErrorData message={ error} /> ;
     }
 
 
@@ -74,9 +82,9 @@ export class GalleryForm extends Component {
 }
 
 GalleryForm.propTypes = {
-  searchData: PropTypes.any,
-  openModal: PropTypes.func,
-  getUrl: PropTypes.func,
+  searchData: PropTypes.string.isRequired,
+  openModal: PropTypes.func.isRequired,
+  getUrl: PropTypes.func.isRequired,
 }
 
 

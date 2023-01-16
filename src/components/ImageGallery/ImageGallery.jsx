@@ -23,9 +23,9 @@ export  const ImageGallery = ({ images, modalclick, getUrl, status, load}) => {
 }
 
 ImageGallery.proTypes = {
-  images: PropTypes.array,
-  modalclick: PropTypes.func,
-  getUrl: PropTypes.func,
-  status:PropTypes.string,
-  load:PropTypes.func,
+  images: PropTypes.array.isRequired,
+  modalclick: PropTypes.func.isRequired,
+  getUrl: PropTypes.func.isRequired,
+  status:PropTypes.string.isRequired,
+  load:PropTypes.func.isRequired,
 }
