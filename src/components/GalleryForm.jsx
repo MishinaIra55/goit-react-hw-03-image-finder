@@ -35,6 +35,8 @@ export class GalleryForm extends Component {
         if (response.hits.length === 0) {
           throw  new SyntaxError('Try again, the search is not correct');
         }
+
+
       } catch (error) {
         this.setState({ error: `нет картинки ${this.props.searchData}`, status: 'rejected' });
       }
