@@ -2,6 +2,7 @@ import styles from './Modal.module.css';
 import { Component } from 'react';
 
 import {createPortal} from 'react-dom';
+import PropTypes from 'prop-types';
 
 
 const modalRoot = document.querySelector('#modal-root');
@@ -38,4 +39,9 @@ export class Modal extends Component {
     );
 
   }
+}
+
+Modal.proTypes = {
+  onClose: PropTypes.func,
+  children: PropTypes.any,
 }

@@ -3,6 +3,7 @@ import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import styles from './ImageGallery.module.css';
 import { Loader } from '../Loader/Loader';
 import { Button } from '../Button/Button';
+import PropTypes from 'prop-types';
 export  const ImageGallery = ({ images, modalclick, getUrl, status, load}) => {
   return (
     <>
@@ -19,4 +20,12 @@ export  const ImageGallery = ({ images, modalclick, getUrl, status, load}) => {
       }
     </>
   )
+}
+
+ImageGallery.proTypes = {
+  images: PropTypes.array,
+  modalclick: PropTypes.func,
+  getUrl: PropTypes.func,
+  status:PropTypes.string,
+  load:PropTypes.func,
 }

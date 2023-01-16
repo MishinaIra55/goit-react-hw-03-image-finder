@@ -5,8 +5,10 @@ import ErrorData from './ErrorData/ErrorData';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader/Loader';
 import api from '../services/pixibay-api';
-import { Button } from './Button/Button';
-// import { Modal } from './Modal/Modal';
+
+import styles from './GalleryForm.module.css';
+import PropTypes from 'prop-types';
+
 
 export class GalleryForm extends Component {
   state = {
@@ -45,7 +47,7 @@ export class GalleryForm extends Component {
     const { images, error, status, page } = this.state;
 
     if (status === 'idle' && images.length === 0) {
-      return <div>Введите ваш запрос поиска</div>;
+      return <div className={styles.text}>Введите ваш запрос поиска</div>;
     }
 
     if (status === 'pending' && page === 1) {
@@ -53,12 +55,10 @@ export class GalleryForm extends Component {
     }
 
     if (status === 'rejected') {
-      return <ErrorData message={error} />;
+      return <ErrorData message='Something went wrong, please try again later'/>;
     }
-    //
-    // if (images.length === 0) {
-    //   return <div>Try again</div>
-    // }
+
+
 
     return (<>
       <ImageGallery
@@ -73,7 +73,11 @@ export class GalleryForm extends Component {
   }
 }
 
-
+GalleryForm.propTypes = {
+  searchData: PropTypes.any,
+  openModal: PropTypes.func,
+  getUrl: PropTypes.func,
+}
 
 
 

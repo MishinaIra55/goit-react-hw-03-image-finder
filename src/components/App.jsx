@@ -7,11 +7,6 @@ import { ToastContainer } from 'react-toastify';
 import { GalleryForm } from './GalleryForm';
 
 import { Modal } from './Modal/Modal';
-import { ImageGallery } from './ImageGallery/ImageGallery';
-
-
-
-
 
 
 
@@ -44,20 +39,20 @@ export class App extends Component {
       largeImage: imageURL
     }
     )
-
   )
 }
 
   render() {
+    const {search, showModal, largeImage } = this.state;
     return (
       <>
         <Searchbar onSubmit ={this.handleSearchbar}/>
-        <GalleryForm searchData={this.state.search} openModal={this.toggleModal} getUrl={this.getLargeImage}/>
+        <GalleryForm searchData={search} openModal={this.toggleModal} getUrl={this.getLargeImage}/>
         <ToastContainer autoClose={2000}/>
 
-        {this.state.showModal && (
+        {showModal && (
         <Modal onClose={this.toggleModal}>
-          <img src={this.state.largeImage} alt="" className="Modal-image" />
+          <img src={largeImage} alt="" className="Modal-image" />
         </Modal>
         )}
       </>
