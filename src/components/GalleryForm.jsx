@@ -55,7 +55,7 @@ export class GalleryForm extends Component {
     }
 
     if (status === 'rejected') {
-      return <ErrorData message='Something went wrong, please try again later'/>;
+      return <ErrorData message={ error}/>;
     }
 
 
