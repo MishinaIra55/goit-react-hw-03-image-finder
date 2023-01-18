@@ -19,9 +19,18 @@ export class GalleryForm extends Component {
   };
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
+    // if (prevProps.searchData !== this.props.searchData || prevState.page !== this.state.page) {
+    //   this.setState({
+    //        images: [],
+    //          page: 1
+    //        })
+    // }
+
+
 
     if (prevProps.searchData !== this.props.searchData || prevState.page !== this.state.page) {
       this.setState({ status: 'pending' });
+
 
       try {
         const response = await fetchAxiosGallery(this.props.searchData,this.state.page);
@@ -42,6 +51,13 @@ export class GalleryForm extends Component {
       }
     }
   }
+
+  // handleReset = ()=> {
+  //   this.setState({
+  //     images: [],
+  //     page: 1
+  //   })
+  // };
 
   onLoadMore =() => {
     this.setState(prevState => ({
@@ -67,8 +83,6 @@ export class GalleryForm extends Component {
     if (status === 'rejected') {
       return <ErrorData message={ error} /> ;
     }
-
-
 
     return (<>
       <ImageGallery
