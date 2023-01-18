@@ -40,8 +40,14 @@ export class GalleryForm extends Component {
       try {
         const response = await fetchAxiosGallery(this.props.searchData,this.state.page);
         this.setState(({images}) => {
+          const newData = response.hits.map(({ id, webformatURL, largeImageURL }) => {
+            return {
+              id, webformatURL, largeImageURL
+            }
+          })
+
           return {
-            images: [...images, ...response.hits],
+            images: [...images, ...newData],
             status: 'idle'
           }
         });
