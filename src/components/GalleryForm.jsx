@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 
 
 export class GalleryForm extends Component {
+
   state = {
     images: [],
     error: '',
@@ -18,19 +19,23 @@ export class GalleryForm extends Component {
     page: 1
   };
 
+  static propTypes = {
+    searchData: PropTypes.string.isRequired,
+    openModal: PropTypes.func.isRequired,
+    getUrl: PropTypes.func.isRequired,
+  }
+
   async componentDidUpdate(prevProps, prevState, snapshot) {
-    // if (prevProps.searchData !== this.props.searchData || prevState.page !== this.state.page) {
-    //   this.setState({
-    //        images: [],
-    //          page: 1
-    //        })
-    // }
-
-
 
     if (prevProps.searchData !== this.props.searchData || prevState.page !== this.state.page) {
       this.setState({ status: 'pending' });
 
+      if (prevProps.searchData !== this.props.searchData) {
+        this.setState({
+          images: [],
+          page: 1
+        })
+      }
 
       try {
         const response = await fetchAxiosGallery(this.props.searchData,this.state.page);
@@ -45,19 +50,11 @@ export class GalleryForm extends Component {
           throw  new SyntaxError('Try again, the search is not correct');
         }
 
-
       } catch (error) {
         this.setState({ error: `нет картинки ${this.props.searchData}`, status: 'rejected' });
       }
     }
   }
-
-  // handleReset = ()=> {
-  //   this.setState({
-  //     images: [],
-  //     page: 1
-  //   })
-  // };
 
   onLoadMore =() => {
     this.setState(prevState => ({
@@ -71,10 +68,6 @@ export class GalleryForm extends Component {
     if (status === 'idle' && images.length === 0) {
       return <div className={styles.text}>Введите ваш запрос поиска</div>;
     }
-
-    // if ( images.length === 0) {
-    //   return <div className={styles.text}>Try again, the search is not correct</div>
-    // }
 
     if (status === 'pending' && page === 1) {
       return <Loader/>
@@ -97,11 +90,7 @@ export class GalleryForm extends Component {
   }
 }
 
-GalleryForm.propTypes = {
-  searchData: PropTypes.string.isRequired,
-  openModal: PropTypes.func.isRequired,
-  getUrl: PropTypes.func.isRequired,
-}
+
 
 
 

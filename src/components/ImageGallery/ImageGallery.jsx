@@ -4,6 +4,8 @@ import styles from './ImageGallery.module.css';
 import { Loader } from '../Loader/Loader';
 import { Button } from '../Button/Button';
 import PropTypes from 'prop-types';
+
+
 export  const ImageGallery = ({ images, modalclick, getUrl, status, load}) => {
   return (
     <>

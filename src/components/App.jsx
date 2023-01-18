@@ -41,7 +41,6 @@ export class App extends Component {
     )
   )
 }
-
   render() {
     const {search, showModal, largeImage } = this.state;
     return (

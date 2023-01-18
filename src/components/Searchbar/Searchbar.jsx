@@ -10,6 +10,10 @@ export class Searchbar extends Component {
     search: '',
   };
 
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  }
+
   //меняю состояние с inputa
   handleSearch = event => {
     this.setState( {search: event.currentTarget.value.toLowerCase()});
@@ -55,6 +59,3 @@ export class Searchbar extends Component {
   }
 }
 
-Searchbar.proTypes = {
-  onSubmit: PropTypes.func.isRequired,
-}
