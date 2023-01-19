@@ -30,11 +30,12 @@ export class GalleryForm extends Component {
     if (prevProps.searchData !== this.props.searchData || prevState.page !== this.state.page) {
       this.setState({ status: 'pending' });
 
-      if (prevProps.searchData !== this.props.searchData) {
+      if (prevProps.searchData !== this.props.searchData && this.state.images.length > 0) {
         this.setState({
           images: [],
           page: 1
         })
+        return;
       }
 
       try {
@@ -44,6 +45,7 @@ export class GalleryForm extends Component {
             return {
               id, webformatURL, largeImageURL
             }
+
           })
 
           return {
