@@ -26,7 +26,6 @@ export class GalleryForm extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
-
     if (prevProps.searchData !== this.props.searchData || prevState.page !== this.state.page) {
       this.setState({ status: 'pending' });
 
